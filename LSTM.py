@@ -114,10 +114,25 @@ a = np.zeros((v_size + x_train.shape[0], 1))
 b = pred_test
 pred_test = np.vstack((a, b))   #データ長を合わせるため0ベクトルと結合
 
-#プロット
-plt.figure()
-plt.plot(pred_test, color="r", label="predict")
-plt.plot(now_data, color="b", label="real")
-plt.grid(True)
-plt.legend()
-plt.show()
+#trainデータ騰落正答確率測定
+data_score = 0
+for i in range(pred_train.shape[0] - v_size - 1):
+    if pred_train[i + v_size + 1] - pred_train[i + v_size] > 0:
+        if data[i + v_size + 1]-data[i + v_size] > 0:
+            data_score += 1
+    if pred_train[i + v_size + 1] - pred_train[i + v_size] < 0:
+        if data[i + v_size + 1] - data[i + v_size] < 0:
+            data_score += 1
+print("train score: {}".format(data_score / (pred_train.shape[0] - v_size - 1)))
+
+#testデータ騰落正答確率測定
+N = x_train.shape[0] + v_size
+data_score = 0
+for i in range(pred_test.shape[0] - N - 1):
+    if pred_test[i + N + 1] - pred_test[i + N] > 0:
+        if data[i + N + 1] - data[i + N] > 0:
+            data_score += 1
+    if pred_test[i + N + 1] - pred_test[i + N] < 0:
+        if data[i + N + 1] - data[i + N] < 0:
+            data_score += 1
+print("test score: {}".format(data_score / (pred_test.shape[0] - N - 1)))
