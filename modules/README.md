@@ -11,4 +11,4 @@ kind_money: 持ってくる仮想通貨の種類。->[一覧](https://docs.polon
 #### 戻り値
 取ってきたデータ。pandasのDataFrameで。
 
-## split.py
+## preprocessing
