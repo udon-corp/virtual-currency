@@ -1,4 +1,6 @@
 import pandas as pd
+import poloniex
+import time
 
 def data_extraction(minutes=5, days=100, type_value='close'):
 
@@ -10,8 +12,5 @@ def data_extraction(minutes=5, days=100, type_value='close'):
 
     # pandasにデータの取り込み
     df = pd.DataFrame(chart_data)
-
-    # APIからString型として受け取るため、float型に変換
-    data = df[type_value].astype(float)
     
-    return data
+    return df

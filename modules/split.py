@@ -1,3 +1,5 @@
+import numpy as np
+
 #データから変数とラベルを生成し、訓練データとテストデータに分割する
 #v_size分の値から次の値を予測する。
 def predict_value(df, v_size=30, type_value='close'):
@@ -28,7 +30,7 @@ def rate_SMA(df, period=5, type_value='close'):
 
     period = period*12
     # 移動平均(moving average)を求める
-    ave_periodは平均する区間、pred_periodは何時間後を
+    # ave_periodは平均する区間、pred_periodは何時間後を
     MA = pd.Series.rolling(data, ave_period, pred_period).mean()
 
     # データの長さ
@@ -44,5 +46,5 @@ def rate_SMA(df, period=5, type_value='close'):
         # 出力変数に「0 or 1（下落or上昇）」を準備
         t[i] = 1 if data[i] <= data[i+1] else 0
 
-    return x, t
+    return np.array(x), np.array(t)
 

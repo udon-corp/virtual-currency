@@ -1,12 +1,12 @@
 import pandas as pd
+import poloniex
+import time
 
-# poloniexのAPI準備
-polo = poloniex.Poloniex()
+# 自作モジュール
+import modules.extraction as ex
+import modules.split as sp
 
-    # period[分]間隔でdays日分読み込む
-chart_data = polo.returnChartData('BTC_ETH', period=minutes*60, start=time.time()-polo.DAY*days, end=time.time())
-
-    # pandasにデータの取り込み
-df = pd.DataFrame(chart_data)
+# データの取り込み-DataFrame(minutes=5, days=100, type_value='close')
+df = ex.data_extraction()
 
 print(df)
