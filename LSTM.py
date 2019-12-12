@@ -40,7 +40,7 @@ def data_split(data, v_size=30, train_split_latio=0.7):
         x.append(x_valu)    #入力変数ベクトル
         t.append(t_valu)    #出力変数ベクトル
 
-    #ndarray型に変換し形を直す
+    #ndarray型に変換(data_len-v_size x v_size)し、形を変形(data_len-v_size x v_size x 1)
     x = np.array(x).reshape(data_len-v_size, v_size, 1)
     t = np.array(t).reshape(data_len-v_size, 1)
 

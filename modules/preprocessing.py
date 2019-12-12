@@ -1,6 +1,6 @@
 import numpy as np
+import pandas as pd
 
-#データから変数とラベルを生成し、訓練データとテストデータに分割する
 #v_size分の値から次の値を予測する。
 def predict_value(df, v_size=30, type_value='close'):
 
@@ -22,23 +22,23 @@ def predict_value(df, v_size=30, type_value='close'):
     
     return x, t
 
-# period[時間]での(移動)平均を求めた後、乖離率（上昇率/降下率）とラベル(up or down)を求める。
-def rate_SMA(df, period=5, type_value='close'):   
+# 現在~period[時間]の平均を求めた後、乖離率（上昇率/降下率）とラベル(up or down)を求める。
+def updown_SMA(df, period=5, type_value='close'):   
 
     # APIからString型として受け取るため、float型に変換
     data = df[type_value].astype(float)
 
     period = period*12
     # 移動平均(moving average)を求める
-    # ave_periodは平均する区間、pred_periodは何時間後を
-    MA = pd.Series.rolling(data, ave_period, pred_period).mean()
+    # ave_periodは平均する区間
+    MA = pd.Series.rolling(data, period).mean()
 
     # データの長さ
     data_count = len(data)
 
     # データ(x)とラベル(t)の初期化
-    x = [None]*data_count
-    t = [None]*data_count
+    x = [None]*(data_count-period)
+    t = [None]*(data_count-period)
 
     for i in range(period-1, data_count-1):
         # period時間の平均の価格からの乖離率を計算

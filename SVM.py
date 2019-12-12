@@ -1,4 +1,4 @@
-import poloniex
+yimport poloniex
 import time
 import pandas as pd
 import matplotlib.pyplot as plt
